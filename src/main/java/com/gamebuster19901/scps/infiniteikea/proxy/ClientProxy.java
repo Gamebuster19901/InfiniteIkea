@@ -1,6 +1,6 @@
-package com.gamebuster19901.example.proxy;
+package com.gamebuster19901.scps.infiniteikea.proxy;
 
-import com.gamebuster19901.example.Main;
+import com.gamebuster19901.scps.infiniteikea.Main;
 
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 

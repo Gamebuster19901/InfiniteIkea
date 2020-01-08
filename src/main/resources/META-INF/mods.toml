@@ -2,21 +2,27 @@ modLoader="javafml" #mandatory
 loaderVersion="[26,)" #mandatory (26 is current forge version)
 issueTrackerURL="http://my.issue.tracker/" #optional
 [[mods]] #mandatory
-modId="yourmodid" #mandatory
+modId="infiniteikea" #mandatory
 version="${file.jarVersion}" #mandatory
-displayName="Example Mod" #mandatory
+displayName="Infinite Ikea (SCP-3008)" #mandatory
 updateJSONURL="http://myurl.me/" #optional
 displayURL="http://example.com/" #optional
 logoFile="examplemod.png" #optional
-credits="Thanks for this example mod goes to Java" #optional
-authors="Love, Cheese and small house plants" #optional
+credits='''Infinite ikea is based on "SCP-3008" by Mortos''' #optional
+authors="Gamebuster19901" #optional
 
 description='''
-This is a long form description of the mod. You can write whatever you want here
+SCP-3008 is a large retail unit previously owned by and branded as IKEA, a popular furniture retail chain. A person entering SCP-3008 through the main entrance and then passing out of sight of the doors will find themselves translocated to SCP-3008-1. This displacement will typically go unnoticed as no change will occur from the perspective of the victim; they will generally not become aware until they try to return to the entrance.
 
-Have some lorem ipsum.
+SCP-3008-1 is a space resembling the inside of an IKEA furniture store, extending far beyond the limits of what could physically be contained within the dimensions of the retail unit. Current measurements indicate an area of at least 10km2 with no visible external terminators detected in any direction. Inconclusive results from the use of laser rangefinders has led to the speculation that the space may be infinite.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sagittis luctus odio eu tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque volutpat ligula eget lacus auctor sagittis. In hac habitasse platea dictumst. Nunc gravida elit vitae sem vehicula efficitur. Donec mattis ipsum et arcu lobortis, eleifend sagittis sem rutrum. Cras pharetra quam eget posuere fermentum. Sed id tincidunt justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+SCP-3008-1 is inhabited by an unknown number of civilians trapped within prior to containment. Gathered data suggests they have formed a rudimentary civilisation within SCP-3008-1, including the construction of settlements and fortifications for the purpose of defending against SCP-3008-2.
+
+SCP-3008-2 are humanoid entities that exist within SCP-3008-1. While superficially resembling humans they possess exaggerated and inconsistent bodily proportions, often described as being too short or too tall. They possess no facial features and in all observed cases wear a yellow shirt and blue trousers consistent with the IKEA employee uniform.
+
+SCP-3008-1 has a rudimentary day-night cycle, determined by the overhead lighting within the space activating and deactivating at times consistent with the opening and closing times of the original retail store. During the "night" instances of SCP-3008-2 will become violent towards all other lifeforms within SCP-3008-1. During these bouts of violence they have been heard to vocalise phrases in English that are typically variations of "The store is now closed, please exit the building". Once "day" begins SCP-3008-2 instances immediately become passive and begin moving throughout SCP-3008-1 seemingly at random. They are unresponsive to questioning or other verbal cues in this state, though will react violently if attacked.
+
+SCP-3008-1 is known to have one or more exits located within though these exits do not appear to have a fixed position, making it difficult to leave SCP-3008-1 once inside. Using any other door besides the main entrance to enter the structure or breaking through the walls of the retail unit leads into the non-anomalous interior of the original store.
 '''
 
 [[dependencies.yourmodid]] #optional
