@@ -3,15 +3,13 @@ package com.gamebuster19901.scps.infiniteikea.dimension;
 import javax.annotation.Nullable;
 
 import com.gamebuster19901.scps.infiniteikea.Main;
+import com.gamebuster19901.scps.infiniteikea.network.Network;
+import com.gamebuster19901.scps.infiniteikea.network.packet.server.PlayLightSound;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
@@ -28,9 +26,9 @@ import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.FlatLayerInfo;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 public class InfiniteIkeaDimension extends Dimension{
 
@@ -107,15 +105,12 @@ public class InfiniteIkeaDimension extends Dimension{
 
 		if(time >= 4000 && time <= 15000) { //IKEA is open between 9AM and 10PM
 			if(!wasDay) {
-				this.world.playSound((PlayerEntity)null, 0, 5, 0, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 10000000000.0F, 0.8F);
-				wasDay = true;
+				playLightSound();
 			}
-			System.out.println(time);
 			return 1f;
 		}
 		if(wasDay) {
-			this.world.playSound((PlayerEntity)null, 0, 5, 0, SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.WEATHER, 1000000000000.0F, 0.8F);
-			wasDay = false;
+			playLightSound();
 		}
 		return -0.5f; //The store is now closed, please exit the building.
 	}
@@ -159,8 +154,8 @@ public class InfiniteIkeaDimension extends Dimension{
 
 	private void playLightSound() {
 		if(!this.world.isRemote) {
-			ServerWorld serverWorld = world;
-			serverWorld.playBroadcastSound(id, pos, data);
+			Network.NETWORK.send(PacketDistributor.DIMENSION.with(this.getDimension()::getType), new PlayLightSound());
+			wasDay = !wasDay;
 		}
 	}
 	

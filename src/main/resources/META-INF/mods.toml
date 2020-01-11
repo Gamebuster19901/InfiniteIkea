@@ -8,7 +8,14 @@ displayName="Infinite Ikea (SCP-3008)" #mandatory
 updateJSONURL="http://myurl.me/" #optional
 displayURL="http://example.com/" #optional
 logoFile="examplemod.png" #optional
-credits='''Infinite ikea is based on "SCP-3008" by Mortos''' #optional
+credits='''
+
+Idea: 
+Infinite ikea is based on "SCP-3008" by Mortos
+
+Addendum:
+Infinite Ikea is not affiliated or endorsed by IKEA group of companies or the Interogo Foundation.
+'''
 authors="Gamebuster19901" #optional
 
 description='''

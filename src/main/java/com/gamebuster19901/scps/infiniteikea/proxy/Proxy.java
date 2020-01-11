@@ -3,10 +3,13 @@ package com.gamebuster19901.scps.infiniteikea.proxy;
 import java.util.function.Consumer;
 
 import com.gamebuster19901.scps.infiniteikea.Main;
+import com.gamebuster19901.scps.infiniteikea.client.audio.WorldLightSound;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaDimension;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaDimensionType;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaTeleporter;
+import com.gamebuster19901.scps.infiniteikea.network.Network;
 
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -31,6 +34,7 @@ public abstract class Proxy{
 	public void setup(FMLCommonSetupEvent event) {
 		Main.LOGGER.info("COMMON SETUP");
 		MinecraftForge.EVENT_BUS.register(this);
+		Network.Register();
 	}
 
 	protected static IEventBus getBus() {
@@ -47,6 +51,11 @@ public abstract class Proxy{
 			//ServerWorld world = e.player.getServer().getWorld(InfiniteIkeaDimensionType.getDimensionType());
 			InfiniteIkeaTeleporter.teleport(e.player);
 		}
+	}
+	
+	@SubscribeEvent
+	public void registerSoundEvents(RegistryEvent.Register<SoundEvent> e) {
+		e.getRegistry().register(WorldLightSound.soundEvent);
 	}
 	
 	@SubscribeEvent

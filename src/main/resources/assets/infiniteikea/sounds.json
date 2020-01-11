@@ -1,0 +1,7 @@
+{
+	"lights": {
+		"category": "master",
+		"subtitle": "infiniteikea.subtitle.lights",
+		"sounds": ["infiniteikea:effect/lights"]
+	}
+}
