@@ -3,6 +3,7 @@ package com.gamebuster19901.scps.infiniteikea.dimension;
 import javax.annotation.Nullable;
 
 import com.gamebuster19901.scps.infiniteikea.Main;
+import static com.gamebuster19901.scps.infiniteikea.block.Blocks.*;
 import com.gamebuster19901.scps.infiniteikea.network.Network;
 import com.gamebuster19901.scps.infiniteikea.network.packet.server.PlayLightSound;
 
@@ -32,7 +33,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 public class InfiniteIkeaDimension extends Dimension{
 
-	public static final ResourceLocation DIMENSION_TYPE = new ResourceLocation(Main.MODID, "scp-3008");
+	public static final ResourceLocation DIMENSION_NAME = new ResourceLocation(Main.MODID, "scp-3008");
 	
 	public InfiniteIkeaDimension(World worldIn, DimensionType typeIn) {
 		super(worldIn, typeIn);
@@ -44,8 +45,7 @@ public class InfiniteIkeaDimension extends Dimension{
 		//return chunkGeneratorType.create(this.world, null, chunkGeneratorType.createSettings());
 		FlatGenerationSettings flatSettings = new FlatGenerationSettings();
 		flatSettings.setBiome(Biomes.BADLANDS);
-		flatSettings.getFlatLayers().add(new FlatLayerInfo(1, Blocks.BEDROCK));
-		flatSettings.getFlatLayers().add(new FlatLayerInfo(1, Blocks.END_STONE));
+		flatSettings.getFlatLayers().add(new FlatLayerInfo(1, IKEA_FLOOR_LIGHT_BLOCK));
 		flatSettings.updateLayers();
 		return ChunkGeneratorType.FLAT.create(this.world, new SingleBiomeProvider(new SingleBiomeProviderSettings().setBiome(Biomes.BADLANDS)), flatSettings);
 	}

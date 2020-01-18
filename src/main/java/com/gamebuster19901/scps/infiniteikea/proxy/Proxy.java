@@ -3,12 +3,18 @@ package com.gamebuster19901.scps.infiniteikea.proxy;
 import java.util.function.Consumer;
 
 import com.gamebuster19901.scps.infiniteikea.Main;
+import static com.gamebuster19901.scps.infiniteikea.block.Blocks.*;
 import com.gamebuster19901.scps.infiniteikea.client.audio.WorldLightSound;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaDimension;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaDimensionType;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaTeleporter;
 import com.gamebuster19901.scps.infiniteikea.network.Network;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.DimensionManager;
@@ -16,6 +22,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ModDimension;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.RegisterDimensionsEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -47,10 +54,22 @@ public abstract class Proxy{
 	
 	@SubscribeEvent
 	public void onTick(PlayerTickEvent e) {
-		if(e.player.isSneaking() && e.player.dimension != InfiniteIkeaDimensionType.getDimensionType() && !e.player.world.isRemote) {
+		if(e.player.dimension != InfiniteIkeaDimensionType.getDimensionType() && !e.player.world.isRemote && e.player.getHeldItemMainhand().getItem().getRegistryName().equals(IKEA_FLOOR_LIGHT_BLOCK.getRegistryName())) {
 			//ServerWorld world = e.player.getServer().getWorld(InfiniteIkeaDimensionType.getDimensionType());
 			InfiniteIkeaTeleporter.teleport(e.player);
 		}
+	}
+	
+	@SubscribeEvent
+	public void registerBlocks(RegistryEvent.Register<Block> e) {
+		e.getRegistry().register(IKEA_FLOOR_LIGHT_BLOCK);
+		e.getRegistry().register(IKEA_FLOOR_DARK_BLOCK);
+	}
+	
+	@SubscribeEvent
+	public void registerItems(RegistryEvent.Register<Item> e) {
+		e.getRegistry().register(new BlockItem(IKEA_FLOOR_LIGHT_BLOCK, new Item.Properties().maxStackSize(64)).setRegistryName(Main.MODID, "ikea_floor_light"));
+		e.getRegistry().register(new BlockItem(IKEA_FLOOR_DARK_BLOCK, new Item.Properties().maxStackSize(64)).setRegistryName(Main.MODID, "ikea_floor_dark"));
 	}
 	
 	@SubscribeEvent
@@ -65,9 +84,8 @@ public abstract class Proxy{
 	
 	@SubscribeEvent
 	public void registerDimensions(RegisterDimensionsEvent e) {
-		if(DimensionType.byName(InfiniteIkeaDimension.DIMENSION_TYPE) == null) {
-			DimensionManager.registerDimension(InfiniteIkeaDimension.DIMENSION_TYPE, InfiniteIkeaDimensionType.DIMENSION_TYPE, null, true);
+		if(DimensionType.byName(InfiniteIkeaDimension.DIMENSION_NAME) == null) {
+			DimensionManager.registerDimension(InfiniteIkeaDimension.DIMENSION_NAME, InfiniteIkeaDimensionType.DIMENSION_TYPE, null, true);
 		}
 	}
-	
 }
