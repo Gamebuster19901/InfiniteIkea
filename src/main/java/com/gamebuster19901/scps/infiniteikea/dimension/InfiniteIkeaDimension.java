@@ -8,7 +8,6 @@ import com.gamebuster19901.scps.infiniteikea.network.Network;
 import com.gamebuster19901.scps.infiniteikea.network.packet.server.PlayLightSound;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
