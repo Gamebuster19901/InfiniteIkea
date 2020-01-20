@@ -1,5 +1,7 @@
 package com.gamebuster19901.scps.infiniteikea.client.renderer.entity.model;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.util.math.Vec3d;
@@ -20,6 +22,14 @@ public class ScalableRendererModel extends RendererModel{
 
 	public ScalableRendererModel(Model model, int texOffX, int texOffY) {
 		super(model, texOffX, texOffY);
+	}
+	
+	@Override
+	public void render(float vanillaScale) {
+		GlStateManager.pushMatrix();
+		GlStateManager.scalef(scaleX, scaleY, scaleZ);
+		super.render(vanillaScale);
+		GlStateManager.popMatrix();
 	}
 	
 	public void setScale(float scaleX, float scaleY, float scaleZ) {
