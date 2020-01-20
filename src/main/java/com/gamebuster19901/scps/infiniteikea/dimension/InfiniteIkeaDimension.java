@@ -100,9 +100,7 @@ public class InfiniteIkeaDimension extends Dimension{
 	private boolean wasDay = true;
 	@Override
 	public float calculateCelestialAngle(long worldTime, float partialTicks) {
-		long time = worldTime % 24000;
-
-		if(time >= 4000 && time <= 15000) { //IKEA is open between 9AM and 10PM
+		if(isDay(worldTime)) { //IKEA is open between 9AM and 10PM
 			if(!wasDay) {
 				playLightSound();
 			}
@@ -112,6 +110,11 @@ public class InfiniteIkeaDimension extends Dimension{
 			playLightSound();
 		}
 		return -0.5f; //The store is now closed, please exit the building.
+	}
+	
+	public static boolean isDay(long worldTime) {
+		long time = worldTime % 24000;
+		return time > 4000 && time <= 15000;
 	}
 	
 	@Nullable

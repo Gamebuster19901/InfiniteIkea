@@ -8,11 +8,15 @@ import com.gamebuster19901.scps.infiniteikea.client.audio.WorldLightSound;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaDimension;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaDimensionType;
 import com.gamebuster19901.scps.infiniteikea.dimension.InfiniteIkeaTeleporter;
+import com.gamebuster19901.scps.infiniteikea.entity.Staff;
 import com.gamebuster19901.scps.infiniteikea.network.Network;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.DimensionManager;
@@ -26,6 +30,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ObjectHolder;
 
 public abstract class Proxy{
 	
@@ -72,6 +77,22 @@ public abstract class Proxy{
 	@SubscribeEvent
 	public void registerSoundEvents(RegistryEvent.Register<SoundEvent> e) {
 		e.getRegistry().register(WorldLightSound.soundEvent);
+	}
+	
+	@ObjectHolder("infiniteikea:staff")
+	public static EntityType<Staff> staff;
+	
+	@SubscribeEvent
+	public void registerEntities(RegistryEvent.Register<EntityType<?>> e) {
+		e.getRegistry().register(EntityType.Builder
+				.create(Staff::new, EntityClassification.MONSTER)
+				.size(1, 1)
+				.setTrackingRange(70)
+				.setUpdateInterval(1)
+				.setShouldReceiveVelocityUpdates(false)
+				.setCustomClientFactory((spawnEntity, world) -> new Staff(staff, world))
+				.build("infiniteikea:staff")
+				.setRegistryName(new ResourceLocation("infiniteikea:staff")));
 	}
 	
 	@SubscribeEvent
