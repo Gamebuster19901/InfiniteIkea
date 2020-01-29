@@ -11,6 +11,9 @@ public class ScalableRendererModel extends RendererModel{
 	public float scaleX = 1;
 	public float scaleY = 1;
 	public float scaleZ = 1;
+	private float defRotX;
+	private float defRotY;
+	private float defRotZ;
 	
 	public ScalableRendererModel(Model model, String boxNameIn) {
 		super(model, boxNameIn);
@@ -44,6 +47,19 @@ public class ScalableRendererModel extends RendererModel{
 	
 	public Vec3d getScale() {
 		return new Vec3d(scaleX, scaleY, scaleZ);
+	}
+
+	public void setDefaultRotationPoint(float x, float y, float z) {
+		setRotationPoint(x,y,z);
+		this.defRotX = x;
+		this.defRotY = y;
+		this.defRotZ = z;
+	}
+	
+	public void resetRotationPoint() {
+		this.rotationPointX = defRotX;
+		this.rotationPointY = defRotY;
+		this.rotationPointZ = defRotZ;
 	}
 	
 }
