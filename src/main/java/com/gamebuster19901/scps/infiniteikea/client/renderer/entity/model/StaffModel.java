@@ -51,7 +51,7 @@ public class StaffModel extends BipedModel<Staff>{
 	
 	@SubscribeEvent
 	public void onClientTick(ClientTickEvent e) {
-		testModel(1,1f,1,1f,1,1,1f);
+		testModel(1,1f,1,2f,1,1,1f);
 	}
 	
 	public void testModel(float headWidthScale, float headHeightScale, float bodyWidthScale, float bodyHeightScale, float armWidthScale, float armLengthScale, float legLengthScale) {
@@ -63,7 +63,7 @@ public class StaffModel extends BipedModel<Staff>{
 		ScalableRendererModel bipedLeftLeg = new ScalableRendererModel(this, 0, 16);
 		ScalableRendererModel bipedRightLeg = new ScalableRendererModel(this, 0, 16);
 		
-		this.bipedHead = bipedHead;
+		this.bipedHead = new ScalableRendererModel(this, 0, 0);
 		this.bipedHeadwear = bipedHeadwear;
 		this.bipedBody = bipedBody;
 		this.bipedLeftArm = bipedLeftArm;
@@ -77,7 +77,7 @@ public class StaffModel extends BipedModel<Staff>{
 		
 		//HEAD
 		bipedHead.setScale(headWidthScale, headHeightScale, 1f);
-		bipedHead.addBox(-4f, 0, -4f, 8, 8, 8);
+		bipedHead.addBox(-4f, -8, -4f, 8, 8, 8);
 		bipedHead.setDefaultRotationPoint(0f, 0,0);
 		
 		//HEADWEAR
@@ -89,6 +89,7 @@ public class StaffModel extends BipedModel<Staff>{
 		bipedBody.setScale(bodyWidthScale, bodyHeightScale, 1);
 		bipedBody.addBox(-4f, 0, -2f, 8, 12, 4);
 		bipedBody.setDefaultRotationPoint(0f, -getHyperbolicResult(longLength, bodyHeightScale), 0f);
+		bipedBody.addChild(bipedHead);
 		
 		//LEFT ARM
 		bipedLeftArm.setScale(1, armLengthScale, 1);
@@ -110,7 +111,7 @@ public class StaffModel extends BipedModel<Staff>{
 		//RIGHT LEG
 		bipedRightLeg.setScale(1, legLengthScale, 1);
 		bipedRightLeg.addBox(-2f, 0, -2f, 4, 12, 4);
-		bipedRightLeg.setDefaultRotationPoint(-1.9f, 12 - getHyperbolicResult(longLength, legLengthScale), 0f);
+		bipedRightLeg.setDefaultRotationPoint(-1.9f, 12, 0f);
 		
 	}
 	

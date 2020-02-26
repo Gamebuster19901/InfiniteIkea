@@ -8,12 +8,11 @@ import net.minecraft.util.math.Vec3d;
 
 public class ScalableRendererModel extends RendererModel{
 
-	public float scaleX = 1;
-	public float scaleY = 1;
-	public float scaleZ = 1;
+	private Vec3d scale = new Vec3d(1,1,1);
 	private float defRotX;
 	private float defRotY;
 	private float defRotZ;
+	protected ScalableRendererModel parent;
 	
 	public ScalableRendererModel(Model model, String boxNameIn) {
 		super(model, boxNameIn);
@@ -30,15 +29,33 @@ public class ScalableRendererModel extends RendererModel{
 	@Override
 	public void render(float vanillaScale) {
 		GlStateManager.pushMatrix();
-		GlStateManager.scalef(scaleX, scaleY, scaleZ);
+		Vec3d scale = getInverseParentalScaling().mul(this.scale);
+		GlStateManager.scaled(scale.x, scale.y, scale.z);
 		super.render(vanillaScale);
 		GlStateManager.popMatrix();
 	}
 	
 	public void setScale(float scaleX, float scaleY, float scaleZ) {
-		this.scaleX = scaleX;
-		this.scaleY = scaleY;
-		this.scaleZ = scaleZ;
+		assert scaleX > 0;
+		assert scaleY > 0;
+		assert scaleZ > 0;
+		this.scale = (new Vec3d(scaleX, scaleY, scaleZ));
+	}
+	
+	@Override
+	@Deprecated
+	public void addChild(RendererModel rendererModel) {
+		super.addChild(rendererModel);
+	}
+	
+	public void addChild(ScalableRendererModel child) {
+		child.setParent(this);
+		super.addChild(child);
+		assert child.parent == this;
+	}
+	
+	protected void setParent(ScalableRendererModel parent) {
+		this.parent = parent;
 	}
 	
 	public void setScale(Vec3d scale) {
@@ -46,7 +63,7 @@ public class ScalableRendererModel extends RendererModel{
 	}
 	
 	public Vec3d getScale() {
-		return new Vec3d(scaleX, scaleY, scaleZ);
+		return this.scale;
 	}
 
 	public void setDefaultRotationPoint(float x, float y, float z) {
@@ -60,6 +77,32 @@ public class ScalableRendererModel extends RendererModel{
 		this.rotationPointX = defRotX;
 		this.rotationPointY = defRotY;
 		this.rotationPointZ = defRotZ;
+	}
+	
+	public Vec3d getInverseScale() {
+		//System.out.println(1d / scale.x + ", " + 1d / scale.y + ", " + 1d / scale.z);
+		return scale.mul(1d / scale.x, 1d / scale.y, 1d / scale.z);
+	}
+	
+	protected Vec3d getInverseParentalScaling() {
+		if(this.parent == null) {
+			return getScale();
+		}
+		
+		byte loops = 0;
+		Vec3d scale = this.getScale();
+		ScalableRendererModel model = this;
+		while(model.parent != null) {
+			Vec3d localScale;
+			model = model.parent;
+			localScale = model.getInverseScale();
+			if(loops < 0) {
+				throw new Error("Parental hierarchy count greater than " + Byte.MAX_VALUE);
+			}
+			loops++;
+		}
+		
+		return scale;
 	}
 	
 }
