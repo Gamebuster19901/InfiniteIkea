@@ -1,6 +1,7 @@
 package com.gamebuster19901.scps.infiniteikea.client.renderer.entity.model;
 
 import com.gamebuster19901.scps.infiniteikea.entity.Staff;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraftforge.common.MinecraftForge;
@@ -9,7 +10,16 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class StaffModel extends BipedModel<Staff>{
 
-	@SuppressWarnings("unchecked")
+	@Override
+	public void render(Staff staff, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float vanillaScale) {
+		GlStateManager.pushMatrix();
+		if (staff.shouldRenderSneaking()) {
+			GlStateManager.translatef(0.0F, 0.2F, 0.0F);
+		}
+		bipedBody.render(vanillaScale);
+		GlStateManager.popMatrix();
+	}
+	
 	public StaffModel(float headWidthScale, float headHeightScale, float bodyWidthScale, float bodyHeightScale, float armWidthScale, float armLengthScale, float legLengthScale) {
 		MinecraftForge.EVENT_BUS.register(this);
 		textureHeight = 64;
@@ -51,10 +61,10 @@ public class StaffModel extends BipedModel<Staff>{
 	
 	@SubscribeEvent
 	public void onClientTick(ClientTickEvent e) {
-		testModel(1,1f,1,2f,1,1,1f);
+		testModel(1f,1f,1f,1f,1f,1f,1f,1f);
 	}
 	
-	public void testModel(float headWidthScale, float headHeightScale, float bodyWidthScale, float bodyHeightScale, float armWidthScale, float armLengthScale, float legLengthScale) {
+	public void testModel(float headWidthScale, float headHeightScale, float bodyWidthScale, float bodyHeightScale, float armWidthScale, float armLengthScale, float legLengthScale, float legWidthScale) {
 		ScalableRendererModel bipedHead = new ScalableRendererModel(this, 0, 0);
 		ScalableRendererModel bipedHeadwear = new ScalableRendererModel(this, 32, 0);
 		ScalableRendererModel bipedBody = new ScalableRendererModel(this, 16, 16);
@@ -63,7 +73,7 @@ public class StaffModel extends BipedModel<Staff>{
 		ScalableRendererModel bipedLeftLeg = new ScalableRendererModel(this, 0, 16);
 		ScalableRendererModel bipedRightLeg = new ScalableRendererModel(this, 0, 16);
 		
-		this.bipedHead = new ScalableRendererModel(this, 0, 0);
+		this.bipedHead = bipedHead;
 		this.bipedHeadwear = bipedHeadwear;
 		this.bipedBody = bipedBody;
 		this.bipedLeftArm = bipedLeftArm;
@@ -73,45 +83,51 @@ public class StaffModel extends BipedModel<Staff>{
 		
 		int longLength = 12;
 		int armWidth = 4;
-		int head = 8;
 		
 		//HEAD
-		bipedHead.setScale(headWidthScale, headHeightScale, 1f);
+		bipedHead.setScale(headWidthScale, headHeightScale, headWidthScale);
 		bipedHead.addBox(-4f, -8, -4f, 8, 8, 8);
 		bipedHead.setDefaultRotationPoint(0f, 0,0);
 		
 		//HEADWEAR
-		//-getHyperbolicResult(longLength, bodyHeightScale) * bodyHeightScale, 0)
-		//bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, 0.5f);
-		//bipedHeadwear.setDefaultRotationPoint(0, 0, 0);
+		bipedHeadwear.setScale(headWidthScale, headHeightScale, headWidthScale);
+		bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, 0.5f);
+		bipedHeadwear.setDefaultRotationPoint(0, 0, 0);
 
 		//BODY
-		bipedBody.setScale(bodyWidthScale, bodyHeightScale, 1);
+		bipedBody.setScale(bodyWidthScale, bodyHeightScale, bodyWidthScale);
 		bipedBody.addBox(-4f, 0, -2f, 8, 12, 4);
-		bipedBody.setDefaultRotationPoint(0f, -getHyperbolicResult(longLength, bodyHeightScale), 0f);
-		bipedBody.addChild(bipedHead);
+		bipedBody.setDefaultRotationPoint(0f, 0, 0f);
 		
 		//LEFT ARM
-		bipedLeftArm.setScale(1, armLengthScale, 1);
-		bipedLeftArm.addBox(-1f, -2f, -2f, 4, 12, 4);
-		bipedLeftArm.setDefaultRotationPoint(5f + getHyperbolicResult(8, bodyWidthScale), 2f - getHyperbolicResult(longLength, bodyHeightScale) * bodyHeightScale, 0f);
+		bipedLeftArm.setScale(armWidthScale, armLengthScale, armWidthScale);
+		bipedLeftArm.addBox(0, 0, -2f, 4, 12, 4);
+		bipedLeftArm.setDefaultRotationPoint(armWidth / armWidthScale * bodyWidthScale, 0, 0f);
 		
 		//RIGHT ARM
-		bipedRightArm.setScale(1, armLengthScale, 1);
-		bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4);
-		bipedRightArm.setDefaultRotationPoint(-5.0F - getHyperbolicResult(8, bodyWidthScale), 2.0F - getHyperbolicResult(longLength, bodyHeightScale) * bodyHeightScale, 0.0F);
+		bipedRightArm.setScale(armWidthScale, armLengthScale, armWidthScale);
+		bipedRightArm.addBox(-4, 0, -2.0F, 4, 12, 4);
+		bipedRightArm.setDefaultRotationPoint(-(armWidth / armWidthScale) * bodyWidthScale, 0f, 0f);
 		
 		//LEFT LEG
 
 		bipedLeftLeg.mirror = true;
-		bipedLeftLeg.setScale(1, legLengthScale, 1);
+		bipedLeftLeg.setScale(legWidthScale, legLengthScale, legWidthScale);
 		bipedLeftLeg.addBox(-2f, 0, -2f, 4, 12, 4);
-		bipedLeftLeg.setDefaultRotationPoint(1.9f, 12 - getHyperbolicResult(longLength, legLengthScale), 0);
+		bipedLeftLeg.setDefaultRotationPoint(2f, longLength, 0);
 		
 		//RIGHT LEG
-		bipedRightLeg.setScale(1, legLengthScale, 1);
-		bipedRightLeg.addBox(-2f, 0, -2f, 4, 12, 4);
-		bipedRightLeg.setDefaultRotationPoint(-1.9f, 12, 0f);
+		bipedRightLeg.setScale(legWidthScale, legLengthScale, legWidthScale);
+		bipedRightLeg.addBox(0, 0, -2f, 4, 12, 4);
+		bipedRightLeg.setDefaultRotationPoint(-4f, longLength, 0f);
+		
+		//ADD CHILDREN
+		bipedBody.addChild(bipedHead);
+		bipedBody.addChild(bipedHeadwear);
+		bipedBody.addChild(bipedLeftArm);
+		bipedBody.addChild(bipedRightArm);
+		bipedBody.addChild(bipedLeftLeg);
+		bipedBody.addChild(bipedRightLeg);
 		
 	}
 	
@@ -139,9 +155,5 @@ public class StaffModel extends BipedModel<Staff>{
 		if(this.bipedRightLeg instanceof ScalableRendererModel) {
 			((ScalableRendererModel) bipedRightLeg).resetRotationPoint();
 		}
-	}
-	
-	protected final float getHyperbolicResult(float defaultLength, float scale) {
-		return defaultLength -(defaultLength / scale);
 	}
 }

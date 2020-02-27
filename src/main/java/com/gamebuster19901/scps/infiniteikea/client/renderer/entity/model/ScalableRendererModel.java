@@ -29,7 +29,7 @@ public class ScalableRendererModel extends RendererModel{
 	@Override
 	public void render(float vanillaScale) {
 		GlStateManager.pushMatrix();
-		Vec3d scale = getInverseParentalScaling().mul(this.scale);
+		Vec3d scale = getInverseParentalScaling();
 		GlStateManager.scaled(scale.x, scale.y, scale.z);
 		super.render(vanillaScale);
 		GlStateManager.popMatrix();
@@ -81,7 +81,7 @@ public class ScalableRendererModel extends RendererModel{
 	
 	public Vec3d getInverseScale() {
 		//System.out.println(1d / scale.x + ", " + 1d / scale.y + ", " + 1d / scale.z);
-		return scale.mul(1d / scale.x, 1d / scale.y, 1d / scale.z);
+		return new Vec3d(1d / scale.x, 1d / scale.y, 1d / scale.z);
 	}
 	
 	protected Vec3d getInverseParentalScaling() {
@@ -99,6 +99,7 @@ public class ScalableRendererModel extends RendererModel{
 			if(loops < 0) {
 				throw new Error("Parental hierarchy count greater than " + Byte.MAX_VALUE);
 			}
+			scale = scale.mul(localScale);
 			loops++;
 		}
 		
