@@ -114,12 +114,12 @@ public class StaffModel extends BipedModel<Staff>{
 		bipedLeftLeg.mirror = true;
 		bipedLeftLeg.setScale(legWidthScale, legLengthScale, legWidthScale);
 		bipedLeftLeg.addBox(-2f, 0, -2f, 4, 12, 4);
-		bipedLeftLeg.setDefaultRotationPoint(2f, longLength, 0);
+		bipedLeftLeg.setDefaultRotationPoint(2f, longLength - getHyperbolicResult(longLength, legLengthScale), 0);
 		
 		//RIGHT LEG
 		bipedRightLeg.setScale(legWidthScale, legLengthScale, legWidthScale);
 		bipedRightLeg.addBox(0, 0, -2f, 4, 12, 4);
-		bipedRightLeg.setDefaultRotationPoint(-4f, longLength, 0f);
+		bipedRightLeg.setDefaultRotationPoint(-4f, longLength - getHyperbolicResult(longLength, legLengthScale), 0f);
 		
 		//ADD CHILDREN
 		bipedBody.addChild(bipedHead);
@@ -155,5 +155,9 @@ public class StaffModel extends BipedModel<Staff>{
 		if(this.bipedRightLeg instanceof ScalableRendererModel) {
 			((ScalableRendererModel) bipedRightLeg).resetRotationPoint();
 		}
+	}
+	
+	protected final float getHyperbolicResult(float defaultLength, float scale) {
+		return defaultLength -(defaultLength / scale);
 	}
 }
