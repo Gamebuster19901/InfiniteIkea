@@ -1,17 +1,22 @@
 package com.gamebuster19901.scps.infiniteikea.client.renderer.entity.model;
 
+import static com.gamebuster19901.scps.infiniteikea.entity.Staff.*;
+
 import com.gamebuster19901.scps.infiniteikea.entity.Staff;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent.ClientTickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class StaffModel extends BipedModel<Staff>{
-
+	
+	private boolean defined = false;
+	
 	@Override
 	public void render(Staff staff, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float vanillaScale) {
+		if(!defined) {
+			defineModel(staff);
+		}
 		GlStateManager.pushMatrix();
 		if (staff.shouldRenderSneaking()) {
 			GlStateManager.translatef(0.0F, 0.2F, 0.0F);
@@ -20,51 +25,17 @@ public class StaffModel extends BipedModel<Staff>{
 		GlStateManager.popMatrix();
 	}
 	
-	public StaffModel(float headWidthScale, float headHeightScale, float bodyWidthScale, float bodyHeightScale, float armWidthScale, float armLengthScale, float legLengthScale) {
+	public StaffModel() {
 		MinecraftForge.EVENT_BUS.register(this);
 		textureHeight = 64;
 		textureWidth = 64;
-		/*
-		//HEAD
-		bipedHead = new RendererModel(this, 0, 0);
-		bipedHead.addBox(-4f, -8f, -4f, headWidth, headHeight, 8);
-		bipedHead.setDefaultRotationPoint(0f, 0f, 0f);
-		
-		//BODY
-		bipedBody = new RendererModel(this, 16, 16);
-		bipedBody.addBox(-4f, 0f, -2f, bodyWidth, bodyWidth, 4);
-		bipedBody.setDefaultRotationPoint(0f, 0f, 0f);
-		
-		//LEFT ARM
-		bipedLeftArm = new RendererModel(this, 32, 48);
-		bipedLeftArm.mirror = true;
-		bipedLeftArm.addBox(-1f, -2f, -2f, armWidth, armLength, 4);
-		bipedLeftArm.setDefaultRotationPoint(-5f, 2f, 0f);
-		
-		//RIGHT ARM
-		bipedRightArm = new RendererModel(this, 40, 16);
-		bipedRightArm.addBox(-3f, -2f, -2f, armWidth, armLength, 4);
-		bipedRightArm.setDefaultRotationPoint(-5f, -2f, 0f);
-		
-		//LEFT LEG
-		bipedLeftLeg = new RendererModel(this, 0, 16);
-		bipedLeftLeg.mirror = true;
-		bipedLeftLeg.addBox(-2f, 0f, -2f, 4, legLength, 4);
-		bipedLeftLeg.setDefaultRotationPoint(1.9f, 12f, 0);
-		
-		//RIGHT LEG
-		bipedRightLeg = new RendererModel(this, 0, 16);
-		bipedRightLeg.addBox(-2f, 0f, -2f, 4, legLength, 4);
-		bipedRightLeg.setDefaultRotationPoint(-1.9f, 12f, 0f);
-		*/
 	}
 	
-	@SubscribeEvent
-	public void onClientTick(ClientTickEvent e) {
-		testModel(1f,1f,1f,1f,1f,1f,1f,1f);
+	private void defineModel(Staff staff) {
+		defineModel(staff.getParam(HEAD_WIDTH), staff.getParam(HEAD_HEIGHT), staff.getParam(BODY_WIDTH), staff.getParam(BODY_HEIGHT), staff.getParam(ARM_WIDTH), staff.getParam(ARM_LENGTH), staff.getParam(LEG_LENGTH), staff.getParam(LEG_WIDTH));
 	}
 	
-	public void testModel(float headWidthScale, float headHeightScale, float bodyWidthScale, float bodyHeightScale, float armWidthScale, float armLengthScale, float legLengthScale, float legWidthScale) {
+	private void defineModel(float headWidthScale, float headHeightScale, float bodyWidthScale, float bodyHeightScale, float armWidthScale, float armLengthScale, float legLengthScale, float legWidthScale) {
 		ScalableRendererModel bipedHead = new ScalableRendererModel(this, 0, 0);
 		ScalableRendererModel bipedHeadwear = new ScalableRendererModel(this, 32, 0);
 		ScalableRendererModel bipedBody = new ScalableRendererModel(this, 16, 16);

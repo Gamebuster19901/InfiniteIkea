@@ -21,7 +21,7 @@ public class StaffRendererFactory implements IRenderFactory<Staff>{
 	@SuppressWarnings("unchecked")
 	@Override
 	public EntityRenderer<? super Staff> createRenderFor(EntityRendererManager manager) {
-		return new StaffRenderer(manager, new StaffModel(8,4,4,8,0,0,0), 1f);
+		return new StaffRenderer(manager, new StaffModel(), 1f);
 	}
 
 }
