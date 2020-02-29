@@ -7,7 +7,7 @@ import com.gamebuster19901.scps.infiniteikea.entity.Staff;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-public class ClientProxy extends Proxy{
+public class ClientProxy extends Proxy {
 	
 	public ClientProxy() {
 		super();

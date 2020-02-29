@@ -30,7 +30,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.PacketDistributor;
 
-public class InfiniteIkeaDimension extends Dimension{
+public class InfiniteIkeaDimension extends Dimension {
 
 	public static final ResourceLocation DIMENSION_NAME = new ResourceLocation(Main.MODID, "scp-3008");
 	

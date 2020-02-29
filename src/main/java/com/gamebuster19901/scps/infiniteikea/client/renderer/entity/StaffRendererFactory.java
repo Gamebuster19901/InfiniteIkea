@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-public class StaffRendererFactory implements IRenderFactory<Staff>{
+public class StaffRendererFactory implements IRenderFactory<Staff> {
 
 	public static final StaffRendererFactory INSTANCE = new StaffRendererFactory();
 	

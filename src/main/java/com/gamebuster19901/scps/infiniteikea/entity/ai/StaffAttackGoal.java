@@ -4,7 +4,7 @@ import com.gamebuster19901.scps.infiniteikea.entity.Staff;
 
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 
-public class StaffAttackGoal extends MeleeAttackGoal{
+public class StaffAttackGoal extends MeleeAttackGoal {
 
 	private final Staff staff;
 	private int raiseArmTicks;

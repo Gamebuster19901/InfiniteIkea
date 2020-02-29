@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 
-public class StaffRenderer extends BipedRenderer<Staff, StaffModel>{
+public class StaffRenderer extends BipedRenderer<Staff, StaffModel> {
 
 	private static final ResourceLocation STAFF_TEXTURE = new ResourceLocation(Main.MODID, "textures/entity/staff/staff.png");
 	

@@ -8,7 +8,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraftforge.common.MinecraftForge;
 
-public class StaffModel extends BipedModel<Staff>{
+public class StaffModel extends BipedModel<Staff> {
 	
 	private boolean defined = false;
 	

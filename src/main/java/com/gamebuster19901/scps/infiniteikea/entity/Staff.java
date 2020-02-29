@@ -25,7 +25,7 @@ import static net.minecraft.entity.SharedMonsterAttributes.MOVEMENT_SPEED;
 
 import javax.annotation.Nullable;
 
-public class Staff extends MonsterEntity{
+public class Staff extends MonsterEntity {
 	
 	public static final DataParameter<Float> HEAD_WIDTH = EntityDataManager.createKey(Staff.class, DataSerializers.FLOAT);
 	public static final DataParameter<Float> HEAD_HEIGHT = EntityDataManager.createKey(Staff.class, DataSerializers.FLOAT);
@@ -167,6 +167,7 @@ public class Staff extends MonsterEntity{
 	private final float between(float min, float max) {
 		return min + this.rand.nextFloat() * (max - min);
 	}
+	
 	private <T> void registerParam(DataParameter<T> param, T defaultValue) {
 		this.dataManager.register(param, defaultValue);
 	}

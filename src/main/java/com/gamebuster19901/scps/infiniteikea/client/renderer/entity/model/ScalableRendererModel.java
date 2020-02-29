@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.util.math.Vec3d;
 
-public class ScalableRendererModel extends RendererModel{
+public class ScalableRendererModel extends RendererModel {
 
 	private Vec3d scale = new Vec3d(1,1,1);
 	private float defRotX;

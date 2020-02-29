@@ -10,7 +10,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class WorldLightSound extends TickableSound{
+public class WorldLightSound extends TickableSound {
 
 	public static ResourceLocation LIGHT_SOUND = new ResourceLocation(Main.MODID, "lights");
 	public static SoundEvent soundEvent = new SoundEvent(LIGHT_SOUND);

@@ -32,7 +32,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ObjectHolder;
 
-public abstract class Proxy{
+public abstract class Proxy {
 	
 	public Proxy() {
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
