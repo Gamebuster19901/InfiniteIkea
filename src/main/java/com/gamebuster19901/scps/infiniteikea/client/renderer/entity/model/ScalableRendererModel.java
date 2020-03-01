@@ -9,21 +9,12 @@ import net.minecraft.util.math.Vec3d;
 public class ScalableRendererModel extends RendererModel {
 
 	private Vec3d scale = new Vec3d(1,1,1);
-	private float defRotX;
-	private float defRotY;
-	private float defRotZ;
 	protected ScalableRendererModel parent;
+	protected RendererModel vanilla;
 	
-	public ScalableRendererModel(Model model, String boxNameIn) {
-		super(model, boxNameIn);
-	}
-
-	public ScalableRendererModel(Model model) {
-		super(model);
-	}
-
-	public ScalableRendererModel(Model model, int texOffX, int texOffY) {
-		super(model, texOffX, texOffY);
+	public ScalableRendererModel(Model model, RendererModel vanillaRendererModel) {
+		super(model, vanillaRendererModel.textureOffsetX, vanillaRendererModel.textureOffsetY);
+		this.vanilla = vanillaRendererModel;
 	}
 	
 	@Override
@@ -65,18 +56,11 @@ public class ScalableRendererModel extends RendererModel {
 	public Vec3d getScale() {
 		return this.scale;
 	}
-
-	public void setDefaultRotationPoint(float x, float y, float z) {
-		setRotationPoint(x,y,z);
-		this.defRotX = x;
-		this.defRotY = y;
-		this.defRotZ = z;
-	}
 	
-	public void resetRotationPoint() {
-		this.rotationPointX = defRotX;
-		this.rotationPointY = defRotY;
-		this.rotationPointZ = defRotZ;
+	public void updateRotation() {
+		this.rotateAngleX = vanilla.rotateAngleX;
+		this.rotateAngleY = vanilla.rotateAngleY;
+		this.rotationPointZ = vanilla.rotateAngleZ;
 	}
 	
 	public Vec3d getInverseScale() {
